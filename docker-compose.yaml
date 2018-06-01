@@ -1,0 +1,36 @@
+version: '2'
+services:
+
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=dev
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+      - MYSQL_DATABASE=building
+
+  nginx:
+    image: prooph/nginx:www
+    ports:
+      - 8080:80
+    links:
+      - php:php
+    volumes:
+      - .:/var/www
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+
+  php:
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mysql
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
