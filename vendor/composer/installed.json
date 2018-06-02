@@ -3314,17 +3314,17 @@
     },
     {
         "name": "symfony/phpunit-bridge",
-        "version": "v4.0.8",
-        "version_normalized": "4.0.8.0",
+        "version": "v4.1.0",
+        "version_normalized": "4.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/phpunit-bridge.git",
-            "reference": "e82f3f46384482f2a7dab5f00c58a36b9726bde9"
+            "reference": "b3451fc442baaf9169e50491a059ef17582c4424"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/e82f3f46384482f2a7dab5f00c58a36b9726bde9",
-            "reference": "e82f3f46384482f2a7dab5f00c58a36b9726bde9",
+            "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/b3451fc442baaf9169e50491a059ef17582c4424",
+            "reference": "b3451fc442baaf9169e50491a059ef17582c4424",
             "shasum": ""
         },
         "require": {
@@ -3337,14 +3337,14 @@
             "ext-zip": "Zip support is required when using bin/simple-phpunit",
             "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
         },
-        "time": "2018-04-04T18:24:59+00:00",
+        "time": "2018-05-25T14:55:38+00:00",
         "bin": [
             "bin/simple-phpunit"
         ],
         "type": "symfony-bridge",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.0-dev"
+                "dev-master": "4.1-dev"
             },
             "thanks": {
                 "name": "phpunit/phpunit",

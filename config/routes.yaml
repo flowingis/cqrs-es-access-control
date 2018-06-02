@@ -1,14 +1,14 @@
 register_new_building:
     path: /buildings
-    controller: App\Controller\BuildingController::registerNew
+    controller: App\Building\Infrastructure\Controller\BuildingController::registerNew
     methods: [POST]
 
 check_in:
     path: /buildings/{buildingId}/check-in
-    controller: App\Controller\BuildingController::checkIn
+    controller: App\Building\Infrastructure\Controller\BuildingController::checkIn
     methods: [POST]
 
 check_out:
     path: /buildings/{buildingId}/check-out
-    controller: App\Controller\BuildingController::checkOut
+    controller: App\Building\Infrastructure\Controller\BuildingController::checkOut
     methods: [POST]

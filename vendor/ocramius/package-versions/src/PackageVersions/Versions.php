@@ -67,7 +67,7 @@ final class Versions
   'symfony/browser-kit' => 'v4.0.8@c43bfa0182363b3fd64331b5e64e467349ff4670',
   'symfony/dom-crawler' => 'v4.0.8@d6c04c7532535b5e0b63db45b543cd60818e0fbc',
   'symfony/dotenv' => 'v4.0.8@afb6923923e22874dac20bd042167ccb8df1d158',
-  'symfony/phpunit-bridge' => 'v4.0.8@e82f3f46384482f2a7dab5f00c58a36b9726bde9',
+  'symfony/phpunit-bridge' => 'v4.1.0@b3451fc442baaf9169e50491a059ef17582c4424',
   'symfony/polyfill-iconv' => '*@',
   'symfony/polyfill-php71' => '*@',
   'symfony/polyfill-php70' => '*@',
