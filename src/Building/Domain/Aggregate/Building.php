@@ -3,6 +3,7 @@
 namespace App\Building\Domain\Aggregate;
 
 
+use App\Building\Domain\Event\CheckInAnomalyDetected;
 use App\Building\Domain\Event\NewBuildingWasRegistered;
 use App\Building\Domain\Event\UserCheckedIn;
 use App\Building\Domain\Event\UserCheckedOut;
@@ -47,27 +48,39 @@ class Building extends EventSourcedAggregateRoot
 
     public function checkInUser(string $username, \DateTimeImmutable $occurredAt)
     {
-        if (array_key_exists($username, $this->usersCheckedIn)) {
-            throw new DoubleCheckInForbidden('double check in forbidden for ' . $username);
-        }
+        $anomaly = array_key_exists($username, $this->usersCheckedIn);
 
         $this->apply(new UserCheckedIn(
             $this->buildingId,
             $username,
             $occurredAt
         ));
+
+        if($anomaly){
+            $this->apply(new CheckInAnomalyDetected(
+                $this->buildingId,
+                $username,
+                $occurredAt
+            ));
+        }
     }
     public function checkOutUser(string $username, \DateTimeImmutable $occurredAt)
     {
-        if (!array_key_exists($username, $this->usersCheckedIn)) {
-            throw new DoubleCheckOutForbidden('double check out forbidden for ' . $username);
-        }
+        $anomaly = !array_key_exists($username, $this->usersCheckedIn);
 
         $this->apply(new UserCheckedOut(
             $this->buildingId,
             $username,
             $occurredAt
         ));
+
+        if ($anomaly) {
+            $this->apply(new CheckInAnomalyDetected(
+                $this->buildingId,
+                $username,
+                $occurredAt
+            ));
+        }
     }
 
     protected function applyNewBuildingWasRegistered(NewBuildingWasRegistered $event)

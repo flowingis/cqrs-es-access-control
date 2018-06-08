@@ -38,17 +38,13 @@ class BuildingController extends Controller
         $requestContent = json_decode($request->getContent(), true);
         $buildingId = Uuid::fromString($request->get('buildingId'));
 
-        try {
-            $commandBus->dispatch(
-                new CheckInUser(
-                    $buildingId,
-                    $requestContent['username'],
-                    new \DateTimeImmutable()
-                )
-            );
-        } catch (DoubleCheckInForbidden $exception) {
-            return new JsonResponse($exception->getMessage(), 400);
-        }
+        $commandBus->dispatch(
+            new CheckInUser(
+                $buildingId,
+                $requestContent['username'],
+                new \DateTimeImmutable()
+            )
+        );
 
         return new JsonResponse(["building" => $buildingId->toString()], 200);
     }
@@ -59,17 +55,13 @@ class BuildingController extends Controller
         $requestContent = json_decode($request->getContent(), true);
         $buildingId = Uuid::fromString($request->get('buildingId'));
 
-        try {
-            $commandBus->dispatch(
-                new CheckOutUser(
-                    $buildingId,
-                    $requestContent['username'],
-                    new \DateTimeImmutable()
-                )
-            );
-        } catch (DoubleCheckOutForbidden $exception) {
-            return new JsonResponse($exception->getMessage(), 400);
-        }
+        $commandBus->dispatch(
+            new CheckOutUser(
+                $buildingId,
+                $requestContent['username'],
+                new \DateTimeImmutable()
+            )
+        );
 
         return new JsonResponse(["building" => $buildingId->toString()], 200);
     }

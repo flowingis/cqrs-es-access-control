@@ -35,3 +35,16 @@ services:
           - '@App\Domain\Repository\BuildingRepository'
         tags:
             - { name: broadway.command_handler }
+
+    App\Building\Application\Process\AnomalyNotifier:
+        class: App\Building\Application\Process\AnomalyNotifier
+        arguments:
+          - '@broadway.command_handling.simple_command_bus'
+        tags:
+            - { name: broadway.domain.event_listener}
+
+    App\Building\Infrastructure\Notification\NotificationCommandHandler:
+            class: App\Building\Infrastructure\Notification\NotificationCommandHandler
+            arguments: ['@logger']
+            tags:
+                - { name: broadway.command_handler }
