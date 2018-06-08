@@ -5,6 +5,8 @@ namespace App\Building\Infrastructure\Controller;
 use App\Building\Domain\Command\CheckInUser;
 use App\Building\Domain\Command\CheckOutUser;
 use App\Building\Domain\Command\RegisterNewBuilding;
+use App\Building\Domain\Exception\DoubleCheckInForbidden;
+use App\Building\Domain\Exception\DoubleCheckOutForbidden;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,13 +38,17 @@ class BuildingController extends Controller
         $requestContent = json_decode($request->getContent(), true);
         $buildingId = Uuid::fromString($request->get('buildingId'));
 
-        $commandBus->dispatch(
-            new CheckInUser(
-                $buildingId,
-                $requestContent['username'],
-                new \DateTimeImmutable()
-            )
-        );
+        try {
+            $commandBus->dispatch(
+                new CheckInUser(
+                    $buildingId,
+                    $requestContent['username'],
+                    new \DateTimeImmutable()
+                )
+            );
+        } catch (DoubleCheckInForbidden $exception) {
+            return new JsonResponse($exception->getMessage(), 400);
+        }
 
         return new JsonResponse(["building" => $buildingId->toString()], 200);
     }
@@ -53,13 +59,17 @@ class BuildingController extends Controller
         $requestContent = json_decode($request->getContent(), true);
         $buildingId = Uuid::fromString($request->get('buildingId'));
 
-        $commandBus->dispatch(
-            new CheckOutUser(
-                $buildingId,
-                $requestContent['username'],
-                new \DateTimeImmutable()
-            )
-        );
+        try {
+            $commandBus->dispatch(
+                new CheckOutUser(
+                    $buildingId,
+                    $requestContent['username'],
+                    new \DateTimeImmutable()
+                )
+            );
+        } catch (DoubleCheckOutForbidden $exception) {
+            return new JsonResponse($exception->getMessage(), 400);
+        }
 
         return new JsonResponse(["building" => $buildingId->toString()], 200);
     }
