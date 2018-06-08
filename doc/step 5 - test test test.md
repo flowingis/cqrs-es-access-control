@@ -29,7 +29,7 @@ class RegisterNewBuildingTest extends CommandHandlerScenarioTestCase
 }
 ```
 
-- Provare a costruire test per gli altri comandi
+- Provare a costruire test per gli altri comandi (CheckInUser, CheckOutUser, e il caso di anomalia)
 
 - Creare test ``\App\Tests\Building\Domain\Readmodel\UserCheckInRepositoryTest`` per read model ``\App\Building\Domain\Readmodel\UserCheckIn``:
 
@@ -57,4 +57,4 @@ class UserCheckInRepositoryTest extends ProjectorScenarioTestCase
 }
 ```
 
-- Provare a costruire test per le altre proiezioni sullo stesso readmodel
+- Provare a costruire test per le altre proiezioni sullo stesso readmodel (per UserCheckedOut)
