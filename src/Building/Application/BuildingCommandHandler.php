@@ -4,6 +4,8 @@ namespace App\Building\Application;
 
 use App\Building\Domain\Aggregate\Building;
 use App\Building\Domain\Command\RegisterNewBuilding;
+use App\Building\Domain\Command\CheckInUser;
+use App\Building\Domain\Command\CheckOutUser;
 use Broadway\CommandHandling\SimpleCommandHandler;
 use Broadway\Repository\Repository;
 
@@ -33,5 +35,25 @@ class BuildingCommandHandler extends SimpleCommandHandler
                 $command->getOccurredAt()
             )
         );
+    }
+
+    protected function handleCheckInUser(CheckInUser $command): void
+    {
+        /** @var Building $building */
+        $building = $this->aggregateRepository->load($command->getBuildingId());
+
+        $building->checkInUser($command->getUsername(), $command->getOccurredAt());
+
+        $this->aggregateRepository->save($building);
+    }
+
+    protected function handleCheckOutUser(CheckOutUser $command): void
+    {
+        /** @var Building $building */
+        $building = $this->aggregateRepository->load($command->getBuildingId());
+
+        $building->checkOutUser($command->getUsername(), $command->getOccurredAt());
+
+        $this->aggregateRepository->save($building);
     }
 }

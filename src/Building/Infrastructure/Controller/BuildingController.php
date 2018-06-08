@@ -2,6 +2,8 @@
 
 namespace App\Building\Infrastructure\Controller;
 
+use App\Building\Domain\Command\CheckInUser;
+use App\Building\Domain\Command\CheckOutUser;
 use App\Building\Domain\Command\RegisterNewBuilding;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,11 +32,35 @@ class BuildingController extends Controller
 
     public function checkIn(Request $request)
     {
+        $commandBus = $this->get('broadway.command_handling.command_bus');
+        $requestContent = json_decode($request->getContent(), true);
+        $buildingId = Uuid::fromString($request->get('buildingId'));
 
+        $commandBus->dispatch(
+            new CheckInUser(
+                $buildingId,
+                $requestContent['username'],
+                new \DateTimeImmutable()
+            )
+        );
+
+        return new JsonResponse(["building" => $buildingId->toString()], 200);
     }
 
     public function checkOut(Request $request)
     {
+        $commandBus = $this->get('broadway.command_handling.command_bus');
+        $requestContent = json_decode($request->getContent(), true);
+        $buildingId = Uuid::fromString($request->get('buildingId'));
 
+        $commandBus->dispatch(
+            new CheckOutUser(
+                $buildingId,
+                $requestContent['username'],
+                new \DateTimeImmutable()
+            )
+        );
+
+        return new JsonResponse(["building" => $buildingId->toString()], 200);
     }
 }

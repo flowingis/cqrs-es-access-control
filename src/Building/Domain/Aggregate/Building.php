@@ -4,6 +4,8 @@ namespace App\Building\Domain\Aggregate;
 
 
 use App\Building\Domain\Event\NewBuildingWasRegistered;
+use App\Building\Domain\Event\UserCheckedIn;
+use App\Building\Domain\Event\UserCheckedOut;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 use Ramsey\Uuid\UuidInterface;
 
@@ -36,13 +38,21 @@ class Building extends EventSourcedAggregateRoot
         return $building;
     }
 
-    public function checkInUser(string $username)
+    public function checkInUser(string $username, \DateTimeImmutable $occurredAt)
     {
-        // @TODO to be implemented
+        $this->apply(new UserCheckedIn(
+            $this->buildingId,
+            $username,
+            $occurredAt
+        ));
     }
-    public function checkOutUser(string $username)
+    public function checkOutUser(string $username, \DateTimeImmutable $occurredAt)
     {
-        // @TODO to be implemented
+        $this->apply(new UserCheckedOut(
+            $this->buildingId,
+            $username,
+            $occurredAt
+        ));
     }
 
     protected function applyNewBuildingWasRegistered(NewBuildingWasRegistered $event)
