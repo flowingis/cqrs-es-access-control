@@ -48,3 +48,13 @@ services:
             arguments: ['@logger']
             tags:
                 - { name: broadway.command_handler }
+
+    App\Building\Domain\Readmodel\Repository\UserCheckInRepository:
+          class: App\Building\Domain\Readmodel\Repository\UserCheckInRepository
+
+    App\Building\Application\CheckedInUsersProjector:
+            class: App\Building\Application\CheckedInUsersProjector
+            arguments:
+              - '@App\Building\Domain\Readmodel\Repository\UserCheckInRepository'
+            tags:
+                - { name: broadway.domain.event_listener}

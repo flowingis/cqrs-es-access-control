@@ -12,3 +12,8 @@ check_out:
     path: /buildings/{buildingId}/check-out
     controller: App\Building\Infrastructure\Controller\BuildingController::checkOut
     methods: [POST]
+
+get_users_checked_in:
+    path: /buildings/{buildingId}/users
+    controller: App\Building\Infrastructure\Controller\BuildingController::getUsersCheckedIn
+    methods: [GET]
