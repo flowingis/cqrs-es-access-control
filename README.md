@@ -12,7 +12,7 @@
 Creare un edificio:
 - `curl -X POST http://localhost:8080/buildings -d '{"name":"Stark Tower"}'`
 
-Per controllare se l'applicazione sta funzionando correttamente dovreste ottenre la seguente risposta:
+Per controllare se l'applicazione sta funzionando correttamente dovreste ottenere la seguente risposta:
 - `{"building":"UUID"}`
 
 Registrare check in di un utente:
