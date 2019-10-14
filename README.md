@@ -23,8 +23,8 @@ Registrare check out di un utente:
 
 # Test
 
-- `docker-compose exec php ./bin/phpunit`
-- `docker-compose exec php ./bin/phpunit -c . --filter __FILTRO__`
+- `docker-compose exec php ./vendor/bin/phpunit`
+- `docker-compose exec php ./vendor/bin/phpunit -c . --filter __FILTRO__`
 
 # Tools
 
